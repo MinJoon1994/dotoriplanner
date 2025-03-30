@@ -47,7 +47,6 @@ out/
 
 # === 환경 설정 ===
 application.yml
-application.properties
 .env
 
 # === 임시 파일 ===
