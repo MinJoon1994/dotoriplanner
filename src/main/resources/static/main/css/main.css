@@ -1,0 +1,110 @@
+body {
+    font-family: 'NanumBarunGothic';
+}
+
+.main {
+    min-height: 80vh;
+    background-color: rgb(249,226,195); /* 베이지 */
+    display: flex;
+    flex-direction: column;
+}
+
+@media (min-width: 768px) {
+    .main {
+        flex-direction: row;
+    }
+}
+
+.text_box {
+    flex: 1;
+    padding: 30px;
+    color: rgb(112, 84, 60); /* 도토리 브라운 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; /* 모바일 중앙 정렬 */
+    text-align: center;
+}
+
+@media (min-width: 768px) {
+    .text_box {
+        align-items: flex-start; /* PC 좌측 정렬 */
+        text-align: left;
+    }
+}
+
+.logo_text{
+     margin-left:auto;
+     margin-right:auto;
+}
+
+@media (min-width: 768px) {
+    .logo_text {
+        margin-left:auto;
+        margin-right:20px;
+    }
+}
+
+.logo_main_font {
+    font-size: 2.5rem;
+    font-family: 'NanumBarunGothicBold';
+}
+
+.img_box {
+    flex: 1;
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dotori_img {
+    max-width: 75%;
+    height: auto;
+    margin:auto;
+}
+
+@media (min-width: 768px) {
+    .dotori_img {
+        margin-left:20px;
+        margin-right:auto;
+    }
+}
+
+.main_btn {
+   background-color: rgb(122, 96, 80);
+   border: none;
+   color: white;
+   width: 150px;
+   height: 40px;
+   margin-top: 10px;
+}
+
+/*메인 2번쨰 섹션 */
+.main2 {
+  padding: 50px 20px;
+  background-color: #f8f9fa;
+}
+
+@media (min-width: 768px) {
+    .main2 {
+        flex-direction: row;
+    }
+}
+
+.main2 h2 {
+  margin-bottom: 20px;
+  font-size: 28px;
+  color: #343a40;
+}
+
+.main2 p {
+  font-size: 18px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.main2 .btn {
+  font-size: 16px;
+  padding: 10px 20px;
+}
