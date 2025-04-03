@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/dotori/member")
+@RequestMapping("/member")
 @Log4j2
 public class MemberController {
 

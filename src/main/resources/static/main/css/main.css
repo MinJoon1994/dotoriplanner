@@ -205,4 +205,30 @@ body {
     }
 }
 
+/*메인 네번째 섹션*/
+.main4{
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+}
+
+@media (min-width: 768px) {
+    .main4{
+        flex-direction: row;
+    }
+}
+
+/*메인 다섯번째 섹션*/
+.main5{
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(249,226,195); /* 베이지 */
+}
+
+@media (min-width: 768px) {
+    .main5{
+        flex-direction: row;
+    }
+}
 
