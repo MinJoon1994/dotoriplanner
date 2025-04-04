@@ -9,18 +9,6 @@ body {
     flex-direction: column;
 }
 
-@media (min-width: 768px) {
-    .main {
-        flex-direction: row;
-    }
-}
-
-@media (min-width: 768px){
-    .main_wrap{
-        display:flex;
-    }
-}
-
 .text_box {
     flex: 1;
     padding: 30px;
@@ -32,27 +20,13 @@ body {
     text-align: center;
 }
 
-@media (min-width: 768px) {
-    .text_box {
-        align-items: flex-start; /* PC 좌측 정렬 */
-        text-align: left;
-    }
-}
-
 .logo_text{
      margin-left:auto;
      margin-right:auto;
 }
 
-@media (min-width: 768px) {
-    .logo_text {
-        margin-left:auto;
-        margin-right:20px;
-    }
-}
-
 .logo_main_font {
-    font-size: 2.5rem;
+    font-size: 1.5rem;
     font-family: 'NanumBarunGothicBold';
 }
 
@@ -70,13 +44,6 @@ body {
     margin:auto;
 }
 
-@media (min-width: 768px) {
-    .dotori_img {
-        margin-left:20px;
-        margin-right:auto;
-    }
-}
-
 .main_btn {
    background-color: rgb(122, 96, 80);
    border: none;
@@ -91,14 +58,6 @@ body {
     color: rgb(122,96,80);
 }
 
-@media (min-width: 768px) {
-    .main_btn {
-        width: 250px;
-        height: 70px;
-        font-size: 20px;
-    }
-}
-
 /*메인 두번쨰 섹션 */
 .main2 {
     min-height: 80vh;
@@ -106,15 +65,9 @@ body {
     flex-direction: column;
 }
 
-@media (min-width: 768px) {
-    .main2 {
-        flex-direction: row;
-    }
-}
-
 .main2 h2 {
   margin-bottom: 20px;
-  font-size: 28px;
+  font-size: 18px;
   color: #343a40;
 }
 
@@ -137,24 +90,9 @@ body {
     color:rgba(0,0,0,0.7);
 }
 
-@media (min-width: 768px) {
-    .main2 .btn {
-        width: 200px;
-        height: 50px;
-        font-size: 20px;
-    }
-}
-
 .logo_text2{
      margin-left:auto;
      margin-right:auto;
-}
-
-@media (min-width: 768px) {
-    .logo_text2 {
-        margin-left:20px;
-        margin-right:auto;
-    }
 }
 
 .dotori_img2 {
@@ -162,14 +100,6 @@ body {
     height: auto;
     margin:auto;
 }
-
-@media (min-width: 768px) {
-    .dotori_img2 {
-        margin-left:auto;
-        margin-right:20px;
-    }
-}
-
 
 /*메인 세번쨰 섹션 */
 .main3 {
@@ -189,7 +119,98 @@ body {
     font-family: 'NanumBarunGothicBold';
 }
 
-@media (min-width: 768px) {
+/*메인 네번째 섹션*/
+.main4{
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/*메인 다섯번째 섹션*/
+.main5{
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(249,226,195); /* 베이지 */
+}
+
+/* 반응형 768px 이상*/
+@media (min-width: 768px){
+    /*메인 첫번째 섹션*/
+    .main {
+        flex-direction: row;
+    }
+
+    .main_wrap {
+        display:flex;
+    }
+
+    .logo_text {
+        margin-left:auto;
+        margin-right:20px;
+    }
+
+    .text_box {
+        align-items: flex-start; /* PC 좌측 정렬 */
+        text-align: left;
+    }
+
+    .dotori_img {
+        margin-left:20px;
+        margin-right:auto;
+    }
+
+    .logo_main_font {
+        font-size: 2.5rem;
+        font-family: 'NanumBarunGothicBold';
+    }
+
+    .main_btn {
+        width: 250px;
+        height: 70px;
+        font-size: 20px;
+    }
+    /*메인 두번쨰 섹션*/
+    .main2 {
+        flex-direction: row;
+    }
+
+    .main2 .btn {
+        width: 200px;
+        height: 50px;
+        font-size: 20px;
+    }
+
+    .logo_text2 {
+        margin-left:20px;
+        margin-right:auto;
+    }
+
+    .main2 h2 {
+      font-size: 28px;
+    }
+
+    .dotori_img2 {
+        margin-left:auto;
+        margin-right:20px;
+    }
+
+    /*메인 세번째 섹션*/
+
+    /*메인 네번째 섹션*/
+    .main4{
+        flex-direction: row;
+    }
+
+    /*메인 다섯번째 섹션*/
+    .main5{
+        flex-direction: row;
+    }
+}
+
+/* 반응형 1024px 이상*/
+@media (min-width: 1024px) {
     .main3 {
         flex-direction: row;
     }
@@ -204,31 +225,3 @@ body {
         font-family: 'NanumBarunGothicBold';
     }
 }
-
-/*메인 네번째 섹션*/
-.main4{
-    min-height: 80vh;
-    display: flex;
-    flex-direction: column;
-}
-
-@media (min-width: 768px) {
-    .main4{
-        flex-direction: row;
-    }
-}
-
-/*메인 다섯번째 섹션*/
-.main5{
-    min-height: 80vh;
-    display: flex;
-    flex-direction: column;
-    background-color: rgb(249,226,195); /* 베이지 */
-}
-
-@media (min-width: 768px) {
-    .main5{
-        flex-direction: row;
-    }
-}
-
