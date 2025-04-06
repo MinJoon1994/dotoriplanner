@@ -1,6 +1,7 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:layout="http://www.ultrag.net.nz/.thymeleaf/layout"
+      layout:decorate="~{layouts/base}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -23,7 +24,7 @@
 
 </head>
 <body>
-<div class="wrap">
+<div layout:fragment="content">
     <!-- 첫번째 섹션 -->
     <div class="main">
         <div class="main_wrap w-75 mx-auto">
