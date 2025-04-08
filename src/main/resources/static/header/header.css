@@ -1,0 +1,21 @@
+.header_box{
+    background-color: #c7b198 !important; /* 도토리 느낌 살짝 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px; /* 기본 높이 */
+    background-color: white;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+}
+
+#header-clock{
+    font-family: "Jua", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 30px;
+    color: rgb(75, 54, 33);
+}
