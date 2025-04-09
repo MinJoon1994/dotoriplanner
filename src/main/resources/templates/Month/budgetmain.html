@@ -15,18 +15,15 @@
   <!-- 폰트 -->
   <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-barun-gothic.css" rel="stylesheet">
 
-  <!-- 내부 스타일 css -->
-  <link href="/main/css/main.css"
-        th:href="@{/main/css/main.css}" rel="stylesheet"/>
-
   <!-- 내부 JS -->
   <script th:src="@{budget/js/budgetmain.js}" defer></script>
 
 </head>
 <body>
 <div layout:fragment="content">
-  <div id="calendar"></div>
-
+  <div class="w-50 mx-auto pt-5">
+    <div id="calendar"></div>
+  </div>
 </div>
 </body>
 </html>

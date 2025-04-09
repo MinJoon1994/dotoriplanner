@@ -13,9 +13,33 @@
 }
 
 #header-clock{
-    font-family: "Jua", sans-serif;
-    font-weight: 400;
-    font-style: normal;
+    font-family: 'NanumBarunGothicBold';
+    font-weight:400;
     font-size: 30px;
     color: rgb(75, 54, 33);
+}
+
+
+.home_btn a {
+  display: flex;
+  align-items: center;
+  height: 60px; /* 헤더 높이에 맞춤 */
+  text-decoration: none;
+  font-family: 'NanumBarunGothicBold';
+  font-size: 30px;
+}
+
+/* 이미지 크기 맞추기 */
+.logo-img {
+    height: 100%; /* 부모 높이 60px 에 맞춤 */
+    width: auto; /* 가로 비율 유지 */
+    display: block;
+    margin-right: 8px; /* 이미지와 텍스트 간격 */
+}
+
+.home_btn span {
+  font-family: 'NanumBarunGothicBold';
+  color: rgb(75, 54, 33);
+  font-weight: 700;
+  font-size: 30px; /* 글자 크기 헤더에 맞게 */
 }

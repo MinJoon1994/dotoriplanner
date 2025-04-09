@@ -40,7 +40,9 @@
 
     <!-- base.html에서 적용되는 공통 모듈 CSS -->
     <style th:inline="css">
-
+        .content-wrap {
+          margin-top: 60px; /* 헤더 높이만큼 */
+        }
     </style>
 </head>
 <body>
@@ -48,7 +50,7 @@
 <div th:replace="~{fragments/header::header}"></div>
 
 <!-- 유저 베이스 콘텐츠 -->
-<div layout:fragment="content"></div>
+<div layout:fragment="content" class="content-wrap"></div>
 
 <!-- footer -->
 <div th:replace="~{fragments/footer::footer}"></div>
