@@ -67,9 +67,9 @@ public class SecurityConfig {
         //3. 로그인 성공시, 리소스 접근 권한 설정
         http.authorizeHttpRequests(auth ->{
             //3.1 정적 리소스 접근 권한 부여
-            auth.requestMatchers("/bs/**","/budget/**","/images/**","/main/**").permitAll();
+            auth.requestMatchers("/bs/**","/budget/**","/images/**","/main/**","/header/**").permitAll();
             //3.2 특정 리소스 권한 부여
-            auth.requestMatchers("/member/**","/login/**").permitAll();
+            auth.requestMatchers("/","/member/**","/login/**").permitAll();
             //3.3 유저별로 권한 설정
             auth.requestMatchers("/admin/**").hasRole("ADMIN");
         });

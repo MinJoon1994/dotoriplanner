@@ -17,3 +17,18 @@ function updateClock() {
 updateClock();
 // 1초마다 갱신
 setInterval(updateClock, 1000);
+
+document.addEventListener('DOMContentLoaded', function() {
+  const menuToggle = document.getElementById('menu-toggle');
+
+  menuToggle.addEventListener('click', function() {
+    const menu = document.querySelector('.header-auth');
+    const info = document.querySelector('.header-info');
+    const clock = document.getElementById('header-clock');
+
+    // 모바일에서는 숨겨져 있으니까 토글로 보이게
+    menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+    info.style.display = info.style.display === 'flex' ? 'none' : 'flex';
+    clock.style.display = clock.style.display === 'block' ? 'none' : 'block';
+  });
+});

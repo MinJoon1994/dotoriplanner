@@ -1,10 +1,81 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultrag.net.nz/.thymeleaf/layout"
+      layout:decorate="~{layouts/base}">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>도토리 플래너</title>
+
+    <!-- 부트스트랩 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="bs/css/styles.css" th:href="@{/bs/css/styles.css}" rel="stylesheet"/>
+
+    <!-- 폰트 -->
+    <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-barun-gothic.css" rel="stylesheet">
+
+    <!-- 내부 스타일 css -->
+    <link href="/main/css/main.css"
+          th:href="@{/main/css/main.css}" rel="stylesheet"/>
+
+    <!-- 내부 JS -->
+    <script th:src="@{budget/js/budgetmain.js}" defer></script>
+
+    <!-- 해당 페이지에서 쓸 css -->
+    <style layout:fragment="mystyle"  th:inline="css">
+
+    </style>
+
+    <!-- 해당 페이지에서 쓸 js -->
+    <script layout:fragment="myscript" th:inline="javascript">
+
+    </script>
 </head>
 <body>
+<div layout:fragment="content">
+    <div class="login_form">
+        <form action="/member/login" method="post">
+            <div>
+                <h5 class="mb-3">로그인</h5>
+                <div>
+                    <input class="memberId" id="member_id" name="loginId" placeholder="아이디">
+                </div>
+                <div>
+                    <input class="memberPwd" id="member_pwd" name="password" placeholder="비밀번호">
+                </div>
+                <div>
+                    <div th:class="filedError" th:if="${loginErrorMsg}" th:text="${loginErrorMsg}">로그인에러메시지 위치</div>
+                </div>
+                <div class="mb-3">
+                    <input type="hidden" class="form-checkbox" id="auto" name="remeber-me">
+                </div>
+                <div class="mt-1">
+                    <a>
+                        <button class="login_btn" type="submit">로그인</button>
+                    </a>
+                </div>
 
+                <ul class="find">
+                    <li class="find_id"><a href="#">아이디 찾기</a></li>
+                    <li class="find_pwd"><a href="#">비밀번호 찾기</a></li>
+                    <li id="new_li"><a href="/member/new">회원가입</a></li>
+                </ul>
+
+                <div class="d-flex flex-column mb-3 mt-5">
+                    <div>
+                        <button class="naver_btn">네이버 로그인</button>
+                    </div>
+                    <div>
+                        <button class="kakao_btn">카카오 로그인</button>
+                    </div>
+                    <div>
+                        <button class="google_btn">구글 로그인</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 </body>
 </html>

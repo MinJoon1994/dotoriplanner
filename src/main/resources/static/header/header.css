@@ -15,7 +15,7 @@
 #header-clock{
     font-family: 'NanumBarunGothicBold';
     font-weight:400;
-    font-size: 30px;
+    font-size: 30px;            /* 30px*/
     color: rgb(75, 54, 33);
 }
 
@@ -42,4 +42,25 @@
   color: rgb(75, 54, 33);
   font-weight: 700;
   font-size: 30px; /* 글자 크기 헤더에 맞게 */
+}
+
+.mobile-menu-icon {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  /* 모바일 화면용 */
+  #header-clock,
+  .header-info,
+  .header-auth {
+    display: none;
+  }
+
+  .mobile-menu-icon {
+    display: block;
+  }
+
+  .home_btn a span {
+    font-size: 16px;
+  }
 }
