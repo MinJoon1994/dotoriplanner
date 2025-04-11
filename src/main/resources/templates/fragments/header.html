@@ -6,19 +6,28 @@
     <header>
         <div class="header_box">
             <div class="d-flex w-100 justify-content-between align-items-center">
-                <!-- 홈버튼 -->
-                <div class="home_btn">
-                    <a href="/" class="home">
-                        <img src="/images/도토리플래너_투명.png" alt="도토리 플래너 로고" class="logo-img">
-                        <span><strong>도토리 플래너</strong></span>
-                    </a>
+                <div class="left-bar d-flex">
+                    <!-- 메뉴 단축버튼 -->
+                    <div class="mobile-menu-icon">
+                        <button class="menu-toggle" onclick="side_menu()">
+                            <img src="/images/메뉴단축바이미지.png" alt="도토리 플래너 로고" class="menu-img">
+                        </button>
+                    </div>
+
+                    <!-- 홈버튼 -->
+                    <div class="home_btn">
+                        <a href="/" class="home">
+                            <img src="/images/도토리플래너_투명.png" alt="도토리 플래너 로고" class="logo-img">
+                            <span><strong>도토리 플래너</strong></span>
+                        </a>
+                    </div>
                 </div>
 
-                <!-- 메뉴 단축버튼 -->
-                <div class="mobile-menu-icon">
-                    <button id="menu-toggle" style="background:none; border:none; font-size:24px;">
-                        &#9776;
-                    </button>
+                <!-- 홈버튼 모바일 -->
+                <div class="home_btn_mobile">
+                    <a href="/" class="home">
+                        <span><strong>도토리 플래너</strong></span>
+                    </a>
                 </div>
 
                 <!-- 시계 -->
@@ -28,7 +37,7 @@
                 </div>
 
                 <!-- 예산정보 -->
-                <div class="d-flex gap-3">
+                <div class="header-budget gap-3">
                     <div>
                         <span>4월 예산: 2,500,000 </span>
                     </div>
@@ -37,16 +46,39 @@
                     </div>
                 </div>
 
-                <!-- 로그인 회원가입 -->
-                <div class="d-flex gap-3 header-auth">
-                    <div class="home_btn">
+                <!-- 로그인 -->
+                <div class="header-auth">
+                    <div class="login">
                         <a href="#"><span><strong>로그인</strong></span></a>
-                    </div>
-                    <div class="home_btn">
-                        <a href="#"><span><strong>회원가입</strong></span></a>
                     </div>
                 </div>
             </div>
+        </div>
+
+        <!-- toggle 사이드바 -->
+        <div class="side-bar-hidden">
+            <h5>Planner</h5>
+            <hr>
+            <div><h6>월간 예산 관리</h6></div>
+            <div><h6>고정 지출 관리</h6></div>
+            <div><h6>일일 에산 관리</h6></div>
+            <div><h6>소비 패턴 분석</h6></div>
+            <br>
+            <h5>Dotori</h5>
+            <hr>
+            <div><h6>내 도토리</h6></div>
+            <div><h6>도토리 랭킹</h6></div>
+            <div><h6>도토리 상점</h6></div>
+            <div><h6>도토리 가이드</h6></div>
+            <br>
+            <h5>Service</h5>
+            <hr>
+            <div><h6>공지사항</h6></div>
+            <div><h6>Q&A</h6></div>
+            <div><h6>고객센터</h6></div>
+            <div><h6>피드백 보내기</h6></div>
+            <div><h6>이용약관</h6></div>
+            <div><h6>개인정보 처리방침</h6></div>
         </div>
     </header>
 </div>

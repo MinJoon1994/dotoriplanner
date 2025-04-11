@@ -1,3 +1,4 @@
+/* 헤더 전체 관련 */
 .header_box{
     background-color: #c7b198 !important; /* 도토리 느낌 살짝 */
     position: fixed;
@@ -12,13 +13,40 @@
     align-items: center;
 }
 
+/*예산정보 관련*/
+.header-budget{
+    display:none;
+}
+
+/* 시계 */
 #header-clock{
     font-family: 'NanumBarunGothicBold';
     font-weight:400;
-    font-size: 30px;            /* 30px*/
+    font-size: 16px;            /* 30px*/
     color: rgb(75, 54, 33);
+    display:none;
 }
 
+/*홈 버튼 관련 */
+.home_btn_mobile{
+    margin-right:auto;
+    margin-left:auto;
+}
+
+.home_btn_mobile a {
+  display: flex;
+  align-items: center;
+  height: 60px; /* 헤더 높이에 맞춤 */
+  text-decoration: none;
+  font-family: 'NanumBarunGothicBold';
+}
+
+.home_btn_mobile span {
+    font-family: 'NanumBarunGothicBold';
+    color: rgb(75, 54, 33);
+    font-weight: 700;
+    font-size: 1.5rem; /* 글자 크기 헤더에 맞게 */
+}
 
 .home_btn a {
   display: flex;
@@ -26,10 +54,20 @@
   height: 60px; /* 헤더 높이에 맞춤 */
   text-decoration: none;
   font-family: 'NanumBarunGothicBold';
-  font-size: 30px;
+  font-size: 16px;
 }
 
-/* 이미지 크기 맞추기 */
+.home_btn span {
+  font-family: 'NanumBarunGothicBold';
+  color: rgb(75, 54, 33);
+  font-weight: 700;
+  font-size: 16px; /* 글자 크기 헤더에 맞게 */
+}
+
+.home_btn{
+    display:none;
+}
+
 .logo-img {
     height: 100%; /* 부모 높이 60px 에 맞춤 */
     width: auto; /* 가로 비율 유지 */
@@ -37,23 +75,83 @@
     margin-right: 8px; /* 이미지와 텍스트 간격 */
 }
 
-.home_btn span {
-  font-family: 'NanumBarunGothicBold';
-  color: rgb(75, 54, 33);
-  font-weight: 700;
-  font-size: 30px; /* 글자 크기 헤더에 맞게 */
+/* 로그인 관련 */
+.login{
+    margin-right:20px;
+    display:flex;
+}
+.login a{
+    font-family: 'NanumBarunGothicBold';
+    font-weight:400;
+    font-size: 16px;            /* 30px*/
+    color: rgb(75, 54, 33);
+    text-decoration:none;
 }
 
+.login a:hover{
+    color:rgb(255,255,255);
+}
+
+/*메뉴 단축 버튼 관련*/
 .mobile-menu-icon {
-  display: none;
+    padding:5px;
+    width:60px;
+    height60px;
+    display: flex;
+    justify-content: center; /* 가로 중앙 */
+    align-items: center;     /* 세로 중앙 */
 }
 
-@media (max-width: 768px) {
-  /* 모바일 화면용 */
-  #header-clock,
-  .header-info,
-  .header-auth {
-    display: none;
+.menu-toggle{
+    padding:0;
+    margin:0;
+    background:none;
+    border:none;
+    font-size:30px;
+    color:rgb(75, 54, 33);
+    display: flex;
+    justify-content: center; /* 가로 중앙 */
+    align-items: center;     /* 세로 중앙 */
+    width:45px;
+    height:45px;
+}
+
+.menu-toggle:hover{
+    background-color:rgba(75, 54, 33,0.5);
+    border-radius: 50%;
+}
+
+.menu-toggle:active{
+    background-color:rgba(75, 54, 33,0.2);
+    border-radius: 50%;
+}
+
+.menu-img{
+    height:40px;
+    width:40px;
+}
+
+/*사이드바 관련 */
+.side-bar-hidden{
+    position:fixed;
+    top:60px;
+    left:0;
+    width:60%;
+    height:100%;
+    background-color:#c7b198;
+    padding: 20px;
+    z-index: 999; /* 헤더보다 낮지만 충분히 앞에 있도록 */
+    display:none;
+}
+
+/* 반응형 768px 이상*/
+@media (min-width: 1024px) {
+  .home_btn{
+    display:block;
+  }
+
+  .home_btn_mobile{
+    display:none;
   }
 
   .mobile-menu-icon {
@@ -61,6 +159,26 @@
   }
 
   .home_btn a span {
-    font-size: 16px;
+    font-size: 30px;
+  }
+
+  .side-bar-hidden{
+    width:15%;
+  }
+
+  .header-budget{
+      display:flex;
+  }
+
+  #header-clock{
+      font-family: 'NanumBarunGothicBold';
+      font-weight:400;
+      font-size: 30px;            /* 30px*/
+      color: rgb(75, 54, 33);
+      display:block;
+  }
+
+  .login{
+    font-size:30px;
   }
 }
