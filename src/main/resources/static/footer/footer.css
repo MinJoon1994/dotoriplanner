@@ -1,0 +1,49 @@
+.dotori-footer {
+  background-color: #f5f1ed; /* 연한 베이지 도토리 톤 */
+  color: rgb(75, 54, 33);
+  font-family: 'NanumBarunGothic', sans-serif;
+  font-size: 0.9rem;
+  padding: 20px 0;
+  text-align: center;
+  border-top: 1px solid rgba(75, 54, 33, 0.2);
+}
+
+.dotori-footer .footer-top {
+  margin-bottom: 10px;
+}
+
+.dotori-footer .footer-links {
+  margin-bottom: 10px;
+}
+
+.dotori-footer .footer-links a {
+  color: rgb(75, 54, 33);
+  text-decoration: none;
+  margin: 0 8px;
+}
+
+.dotori-footer .footer-links a:hover {
+  text-decoration: underline;
+}
+
+.dotori-footer .footer-bottom p {
+  margin: 5px 0;
+}
+
+@media (max-width: 768px) {
+  .dotori-footer {
+    font-size: 0.8rem;
+    padding: 15px 10px;
+  }
+
+  .dotori-footer .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .dotori-footer .footer-links span {
+    display: none;
+  }
+}

@@ -1,5 +1,6 @@
 /* 헤더 전체 관련 */
 .header_box{
+    font-family: 'NanumBarunGothicBold';
     background-color: #c7b198 !important; /* 도토리 느낌 살짝 */
     position: fixed;
     top: 0;
@@ -142,6 +143,48 @@
     padding: 20px;
     z-index: 999; /* 헤더보다 낮지만 충분히 앞에 있도록 */
     display:none;
+}
+
+/*사이드바 메뉴 관련*/
+
+.menu_side_bar h5{
+    color: rgb(75,54,33);
+}
+
+/* ul 기본 스타일 제거 */
+.planner_menu {
+  list-style: none;   /* 불릿 제거 */
+  margin: 0;
+  padding: 0;
+}
+
+/* li 스타일 설정 */
+.planner_menu li {
+  display: flex;              /* flex 컨테이너 */
+  align-items: center;        /* 세로 가운데 정렬 */
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  height:25px;
+}
+
+/* 링크 글자 스타일 */
+.planner_menu li a {
+  text-decoration: none;
+  color: rgb(75, 54, 33);  /* 도토리 컬러 */
+  display: block;
+  font-size: 1rem; /* 필요 시 폰트 크기 조정 */
+  flex-grow: 1; /* a태그가 li 영역 전체 차지 */
+  font-family: 'NanumBarunGothicBold';
+}
+
+/* 호버 시 */
+.planner_menu li:hover {
+  background-color: rgba(75, 54, 33, 0.4);
+}
+
+/* 클릭 후 활성화 상태 */
+.planner_menu li:active {
+  background-color: rgba(75, 54, 33, 0.2);
 }
 
 /* 반응형 768px 이상*/

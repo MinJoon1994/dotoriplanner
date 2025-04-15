@@ -1,4 +1,4 @@
-<!doctype html>
+
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultrag.net.nz/.thymeleaf/layout"
       layout:decorate="~{layouts/base}">
@@ -15,16 +15,14 @@
     <!-- 폰트 -->
     <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-barun-gothic.css" rel="stylesheet">
 
-    <!-- 내부 스타일 css -->
-    <link href="/main/css/main.css"
-          th:href="@{/main/css/main.css}" rel="stylesheet"/>
-
-    <!-- 내부 JS -->
-    <script th:src="@{budget/js/budgetmain.js}" defer></script>
-
     <!-- 해당 페이지에서 쓸 css -->
     <style layout:fragment="mystyle"  th:inline="css">
-
+        .login_form{
+            height:850px;
+            display: flex;
+            justify-content: center; /* 가로 가운데 */
+            align-items: center;     /* 세로 가운데 */
+        }
     </style>
 
     <!-- 해당 페이지에서 쓸 js -->
@@ -36,7 +34,7 @@
 <div layout:fragment="content">
     <div class="login_form">
         <form action="/member/login" method="post">
-            <div>
+            <div class="login_form_inner">
                 <h5 class="mb-3">로그인</h5>
                 <div>
                     <input class="memberId" id="member_id" name="loginId" placeholder="아이디">
