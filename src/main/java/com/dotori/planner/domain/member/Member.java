@@ -50,6 +50,11 @@ public class Member {
     private LocalDateTime lastLoginAt; //회원 마지막 접속일
 
     private String profileImageUrl; //회원 프로필 이미지 URL
+    
+    private String social_type; //회원 소셜 로그인 종류
+    
+    private String social_id; //회원 소셜 로그인 ID
+
 
     @PrePersist
     protected void onCreate() {
