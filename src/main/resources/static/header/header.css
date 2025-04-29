@@ -216,12 +216,12 @@
   #header-clock{
       font-family: 'NanumBarunGothicBold';
       font-weight:400;
-      font-size: 30px;            /* 30px*/
+      font-size: 20px;            /* 30px*/
       color: rgb(75, 54, 33);
       display:block;
   }
 
-  .login{
-    font-size:30px;
+  .login a{
+    font-size:25px;
   }
 }
