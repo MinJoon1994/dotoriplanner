@@ -97,7 +97,7 @@
 .mobile-menu-icon {
     padding:5px;
     width:60px;
-    height60px;
+    height:60px;
     display: flex;
     justify-content: center; /* 가로 중앙 */
     align-items: center;     /* 세로 중앙 */

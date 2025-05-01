@@ -1,12 +1,11 @@
-
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultrag.net.nz/.thymeleaf/layout"
       layout:decorate="~{layouts/base}">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-    <title>도토리 플래너</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>도토리 플래너 - 로그인</title>
 
     <!-- 부트스트랩 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
@@ -16,61 +15,206 @@
     <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-barun-gothic.css" rel="stylesheet">
 
     <!-- 해당 페이지에서 쓸 css -->
-    <style layout:fragment="mystyle"  th:inline="css">
-        .login_form{
-            width:60%;
-            height:850px;
+    <style layout:fragment="mystyle" th:inline="css">
+        .login_form {
+            width: 100%;
+            max-width: 450px;
+            margin: 2rem auto;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+        }
+
+        .login_form_inner {
+            padding: 1rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #7c583b;
+            box-shadow: 0 0 5px rgba(124, 88, 59, 0.2);
+        }
+
+        .login_btn {
+            width: 100%;
+            padding: 0.8rem;
+            background-color: #7c583b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .login_btn:hover {
+            background-color: #634629;
+        }
+
+        .find {
+            list-style: none;
+            padding: 0;
+            margin: 1.5rem 0;
             display: flex;
-            justify-content: center; /* 가로 가운데 */
-            align-items: center;     /* 세로 가운데 */
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .find li a {
+            color: #666;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .find li a:hover {
+            color: #7c583b;
+        }
+
+        .social-login-btn {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 0.8rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.3s ease;
+        }
+
+        .naver_btn {
+            background-color: #03C75A;
+            color: white;
+        }
+
+        .kakao_btn {
+            background-color: #FEE500;
+            color: #000000;
+        }
+
+        .google_btn {
+            background-color: #ffffff;
+            color: #000000;
+            border: 1px solid #dadce0;
+        }
+
+        .social-login-btn:hover {
+            opacity: 0.9;
+        }
+
+        .filedError {
+            color: #dc3545;
+            font-size: 0.875rem;
+            margin-top: -0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .divider {
+            text-align: center;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        .divider::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background-color: #e0e0e0;
+        }
+
+        .divider span {
+            background-color: #ffffff;
+            padding: 0 1rem;
+            color: #666;
+            position: relative;
+        }
+
+        .login-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-family: 'GyeonggiTitle', 'NanumBarunGothic', sans-serif;
+            color: #7c583b;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .login-title h3 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-title p {
+            font-size: 1.5rem;
+            color: #a67c52;
+            font-weight: 300;
+            margin-top: 0.5rem;
+        }
+
+        @font-face {
+            font-family: 'GyeonggiTitle';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/GyeonggiTitleM.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
         }
     </style>
-
-    <!-- 해당 페이지에서 쓸 js -->
-    <script layout:fragment="myscript" th:inline="javascript">
-
-    </script>
 </head>
 <body>
 <div layout:fragment="content">
     <div class="login_form">
         <form action="/member/login" method="post">
             <div class="login_form_inner">
-                <h5 class="mb-3">로그인</h5>
-                <div>
-                    <input class="memberId" id="member_id" name="loginId" placeholder="아이디">
+                <div class="login-title">
+                    <h3>도토리 플래너</h3>
+                    <p>당신의 일상을 더 풍요롭게</p>
                 </div>
-                <div>
-                    <input class="memberPwd" id="member_pwd" name="password" placeholder="비밀번호">
-                </div>
-                <div>
-                    <div th:class="filedError" th:if="${loginErrorMsg}" th:text="${loginErrorMsg}">로그인에러메시지 위치</div>
-                </div>
-                <div class="mb-3">
-                    <input type="hidden" class="form-checkbox" id="auto" name="remeber-me">
-                </div>
-                <div class="mt-1">
-                    <a>
-                        <button class="login_btn" type="submit">로그인</button>
-                    </a>
-                </div>
+                
+                <input type="text" class="form-input" id="member_id" name="loginId" placeholder="아이디">
+                <input type="password" class="form-input" id="member_pwd" name="password" placeholder="비밀번호">
+                
+                <div th:if="${loginErrorMsg}" th:text="${loginErrorMsg}" class="filedError"></div>
+                
+                <input type="hidden" id="auto" name="remeber-me">
+                
+                <button class="login_btn" type="submit">로그인</button>
 
                 <ul class="find">
-                    <li class="find_id"><a href="#">아이디 찾기</a></li>
-                    <li class="find_pwd"><a href="#">비밀번호 찾기</a></li>
-                    <li id="new_li"><a href="/member/new">회원가입</a></li>
+                    <li><a href="#">아이디 찾기</a></li>
+                    <li><a href="#">비밀번호 찾기</a></li>
+                    <li><a href="/member/new">회원가입</a></li>
                 </ul>
 
-                <div class="d-flex flex-column mb-3 mt-5">
-                    <div>
-                        <button class="naver_btn">네이버 로그인</button>
-                    </div>
-                    <div>
-                        <button class="kakao_btn">카카오 로그인</button>
-                    </div>
-                    <div>
-                        <button class="google_btn">구글 로그인</button>
-                    </div>
+                <div class="divider">
+                    <span>또는</span>
+                </div>
+
+                <div class="social-login-section">
+                    <button type="button" class="social-login-btn naver_btn">
+                        네이버로 시작하기
+                    </button>
+                    <button type="button" class="social-login-btn kakao_btn">
+                        카카오로 시작하기
+                    </button>
+                    <button type="button" class="social-login-btn google_btn">
+                        구글로 시작하기
+                    </button>
                 </div>
             </div>
         </form>
