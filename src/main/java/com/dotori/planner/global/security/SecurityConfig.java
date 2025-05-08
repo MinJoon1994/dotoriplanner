@@ -1,5 +1,7 @@
 package com.dotori.planner.global.security;
 
+import com.dotori.planner.domain.member.Member;
+import com.dotori.planner.domain.member.MemberRepository;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -13,6 +15,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -33,7 +39,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http, CustomUserDetailService customUserDetailService) throws Exception {
 
         log.info("=================== Security configure : securityFilterChain ===================");
 
@@ -67,7 +73,7 @@ public class SecurityConfig {
         //3. 로그인 성공시, 리소스 접근 권한 설정
         http.authorizeHttpRequests(auth ->{
             //3.1 정적 리소스 접근 권한 부여
-            auth.requestMatchers("/bs/**","/budget/**","/images/**","/main/**","/header/**","/footer/**").permitAll();
+            auth.requestMatchers("/bs/**","/budget/**","/images/**","/main/**","/header/**","/footer/**","/favicon.ico").permitAll();
             //3.2 특정 리소스 권한 부여
             auth.requestMatchers("/","/member/**","/login/**").permitAll();
             //3.3 유저별로 권한 설정
@@ -88,4 +94,5 @@ public class SecurityConfig {
 
         return http.build();
     }
+
 }

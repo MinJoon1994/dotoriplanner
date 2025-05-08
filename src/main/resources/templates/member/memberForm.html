@@ -269,17 +269,34 @@
         // 중복 체크 함수
         window.checkDuplicate = function(type) {
             const value = document.getElementById(type === 'loginId' ? 'loginId' : 'email').value;
-            const url = `/member/check-${type}?${type}=${value}`;
-            
-            fetch(url)
-                .then(response => response.text())
-                .then(message => {
-                    alert(message);
+
+            if (!value) {
+                alert(type === 'loginId' ? '아이디를 입력해주세요.' : '이메일을 입력해주세요.');
+                return;
+            }
+
+            fetch(`/member/check-${type}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    [type]: value
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.available) {
+                        alert('사용 가능합니다.');
+                    } else {
+                        alert('이미 사용중입니다.');
+                    }
                 })
                 .catch(error => {
                     alert('중복 확인 중 오류가 발생했습니다.');
                 });
         };
+
 
         // 약관 토글 함수
         window.toggleTerms = function(element) {
@@ -404,7 +421,7 @@
             </div>
         </div>
         <div class="privacy-checkbox">
-            <input type="checkbox" id="privacy-agree" required class="required-agree">
+            <input type="checkbox" id="privacy-agree" name="termsAgree" th:field="*{privacyAgree}" required class="required-agree">
             <label for="privacy-agree">개인정보 처리방침에 동의합니다</label>
         </div>
 
@@ -445,7 +462,7 @@
             </div>
         </div>
         <div class="privacy-checkbox">
-            <input type="checkbox" id="terms-agree" required class="required-agree">
+            <input type="checkbox" id="terms-agree" required th:field="*{termsAgree}" class="required-agree">
             <label for="terms-agree">서비스 이용약관에 동의합니다</label>
         </div>
 
@@ -472,7 +489,7 @@
             </div>
         </div>
         <div class="privacy-checkbox">
-            <input type="checkbox" id="marketing-agree" class="optional-agree">
+            <input type="checkbox" id="marketing-agree" th:field="*{marketingAgree}" class="optional-agree">
             <label for="marketing-agree">마케팅 수신에 동의합니다</label>
         </div>
     </div>
@@ -481,7 +498,7 @@
                 <button type="submit" class="signup-btn">가입하기</button>
 
                 <div class="login-link">
-                    <p>이미 계정이 있으신가요? <a href="/member/login">로그인하기</a></p>
+                    <p>이미 계정이 있으신가요? <a href="/member/loginForm">로그인하기</a></p>
                 </div>
             </div>
         </form>

@@ -1,11 +1,15 @@
 package com.dotori.planner.domain.member;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -23,45 +27,51 @@ public class MemberController {
     }
 
     //로그인 아이디 중복
-    @GetMapping("/check-loginid")
-    public ResponseEntity<String> checkLoginId(@RequestParam String loginId){
-        try {
-            Member member = Member.builder().loginId(loginId).build();
-            memberService.isLoginIdDuplicate(member);
-            return ResponseEntity.ok("사용 가능한 아이디입니다.");
-        }catch(IllegalStateException e){
-            log.info("Member checkLoginId에서 발생한 문제입니다.");
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+    @PostMapping("/check-loginId")
+    public ResponseEntity<Map<String, Boolean>> checkLoginId(@RequestBody DuplicateCheckRequest request) {
+        boolean isAvailable = memberService.isLoginIdAvailable(request.getLoginId());
+        log.info("isAvailable:"+isAvailable);
+        Map<String, Boolean> response = Map.of("available", isAvailable);
+        return ResponseEntity.ok(response);
     }
     
-    //이메일 중복 체크
-    @GetMapping("/check-email")
-    public ResponseEntity<String> checkEmail(@RequestParam String email){
-        try{
-            Member member = Member.builder().email(email).build();
-            memberService.isEmailDuplicate(member);
-            return ResponseEntity.ok("사용 가능한 이메일입니다.");
-        }catch(IllegalStateException e){
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+    //이메일 중복
+    @PostMapping("/check-email")
+    public ResponseEntity<Map<String, Boolean>> checkEmail(@RequestBody DuplicateCheckRequest request) {
+        boolean isAvailable = memberService.isEmailAvailable(request.getEmail());
+        log.info("isAvailable:"+isAvailable);
+        Map<String, Boolean> response = Map.of("available", isAvailable);
+        return ResponseEntity.ok(response);
     }
+
 
     //회원가입
     @PostMapping("/register")
-    public String register(@RequestBody MemberDTO memberDTO){
+    public String register(@ModelAttribute MemberDTO memberDTO){
+
+        log.info("memberDTO:"+memberDTO);
+
         memberService.registerMember(memberDTO);
-        return "redirect:/login";
+        return "redirect:/member/login";
     }
     
     //로그인 화면 불러오기
     @GetMapping("/login")
     public String loginForm(){
-        return "/member/login";
+        return "/member/loginForm";
     }
 
 
+    @GetMapping("/login/error")
+    public String loginError(Model model) {
+        model.addAttribute("loginErrorMsg", "아이디 또는 비밀번호가 올바르지 않습니다.");
+        return "/member/loginForm"; // 로그인 뷰 그대로
+    }
+}
 
-
-
+@Getter
+@NoArgsConstructor
+class DuplicateCheckRequest {
+    private String loginId;
+    private String email;
 }

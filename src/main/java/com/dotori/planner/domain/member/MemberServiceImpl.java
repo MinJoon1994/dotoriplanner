@@ -20,26 +20,22 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public Member registerMember(MemberDTO memberDTO) {
 
+        // 비밀번호 암호화 추가
+        memberDTO.setPassword(passwordEncoder.encode(memberDTO.getPassword()));
+
         Member member = Member.createMember(memberDTO);
-    
-        //아이디 중복 검사
-        isLoginIdDuplicate(member);
-        //이메일 중복 검사
-        isEmailDuplicate(member);
 
         return memberRepository.save(member);
     }
 
-    @Override
-    public void isLoginIdDuplicate(Member member) {
-        Member findLoginId=memberRepository.findByLoginId(member.getLoginId());
-        if(findLoginId!=null) throw new IllegalStateException("이미 중복된 아이디입니다.");
+    //로그인 아이디 중복 체크 서비스
+    public boolean isLoginIdAvailable(String loginId) {
+        return !memberRepository.existsByLoginId(loginId);
     }
 
-    @Override
-    public void isEmailDuplicate(Member member) {
-        Member findEmail=memberRepository.findByEmail(member.getEmail());
-        if(findEmail!=null) throw new IllegalStateException("이미 가입된 이메일 입니다.");
+    //이메일 중복 체크 서비스
+    public boolean isEmailAvailable(String email) {
+        return !memberRepository.existsByEmail(email);
     }
 
     @Override

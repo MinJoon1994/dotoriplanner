@@ -68,7 +68,7 @@ public class Member {
 
     //1. dto -> entity
     public static Member createMember(MemberDTO memberDTO){
-        Member member =Member.builder()
+        return Member.builder()
                 .loginId(memberDTO.getLoginId())
                 .password(memberDTO.getPassword())
                 .name(memberDTO.getName())
@@ -76,9 +76,13 @@ public class Member {
                 .termsAgree(memberDTO.isTermsAgree())
                 .privacyAgree(memberDTO.isPrivacyAgree())
                 .marketingAgree(memberDTO.isMarketingAgree())
-                .role(Role.USER) //유저로 설정
+                .role(Role.USER)
+                .deleted(false)           // deleted 필드 추가
+                .social_type(null)        // 일반 회원가입이므로 null
+                .social_id(null)          // 일반 회원가입이므로 null
+                .profileImageUrl(null)    // 초기 프로필 이미지 없음
                 .build();
-        return member;
     }
+
 }
 
