@@ -41,6 +41,9 @@ dependencies {
 	//타임리프 프래그먼트
 	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:3.2.1'
 
+	//소셜 로그인
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+
 }
 
 tasks.named('test') {

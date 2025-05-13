@@ -39,5 +39,17 @@ function side_menu(){
             sidebar.style.flexDirection = "column";
           }
     });
+}
 
+function toggleProfileModal() {
+    const modal = document.getElementById("profileModal");
+    modal.style.display = (modal.style.display === "block") ? "none" : "block";
+}
+
+// 외부 클릭 시 모달 닫기
+window.onclick = function(event) {
+    const modal = document.getElementById("profileModal");
+    if (event.target !== modal && !modal.contains(event.target) && !event.target.classList.contains('profile-image')) {
+        modal.style.display = "none";
+    }
 }

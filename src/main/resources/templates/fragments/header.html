@@ -46,12 +46,31 @@
                     </div>
                 </div>
 
-                <!-- 로그인 -->
+
                 <div class="header-auth">
-                    <div class="login">
+                    <!-- 로그인 여부 체크 -->
+                    <div class="profile-container" th:if="${#authorization.expression('isAuthenticated()')}">
+                        <span class="user-name me-3" th:text="${#authentication.principal.name + ' 님 환영합니다!'}"></span>
+                        <img th:src="${#authentication.principal.profileImg}" alt="프로필" class="profile-image" onclick="toggleProfileModal()">
+                    </div>
+
+                    <!-- 비로그인 상태 -->
+                    <div class="login" th:if="${#authorization.expression('!isAuthenticated()')}">
                         <a href="/login"><span><strong>로그인</strong></span></a>
                     </div>
                 </div>
+
+                <!-- 모달 -->
+                <div id="profileModal" class="profile-modal" th:if="${#authorization.expression('isAuthenticated()')}">
+                    <img th:src="${#authentication.principal.profileImg}" alt="프로필" class="modal-profile-image">
+                    <h3 th:text="${#authentication.principal.name + '님'}"></h3>
+                    <p th:text="'이메일: ' + ${#authentication.principal.email}"></p>
+                    <div class="modal-buttons">
+                        <a href="/mypage">마이페이지</a>
+                        <a href="/logout">로그아웃</a>
+                    </div>
+                </div>
+
             </div>
         </div>
 

@@ -187,41 +187,118 @@
   background-color: rgba(75, 54, 33, 0.2);
 }
 
+/* 프로필 이미지 + 이름 */
+.profile-container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.profile-container span{
+    display: none;
+}
+
+.profile-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+    background-color: #ddd;
+}
+
+/* 모달 */
+.profile-modal {
+    display: none;
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    background-color: #FAF6F1;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    width: 250px;
+    z-index: 1000;
+}
+
+.profile-modal .modal-content {
+    padding: 15px;
+    text-align: center;
+}
+
+.modal-profile-image {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+    background-color: #ddd;
+}
+
+.modal-buttons a {
+    display: block;
+    padding: 8px;
+    margin: 5px 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    text-decoration: none;
+    color: black;
+    font-size: 14px;
+}
+
+.modal-buttons a:hover {
+    background-color: #f0f0f0;
+}
+
+.close {
+    float: right;
+    font-size: 20px;
+    cursor: pointer;
+}
+
 /* 반응형 768px 이상*/
 @media (min-width: 1024px) {
-  .home_btn{
-    display:block;
-  }
+    .home_btn {
+        display: block;
+    }
 
-  .home_btn_mobile{
-    display:none;
-  }
+    .home_btn_mobile {
+        display: none;
+    }
 
-  .mobile-menu-icon {
-    display: block;
-  }
+    .mobile-menu-icon {
+        display: block;
+    }
 
-  .home_btn a span {
-    font-size: 30px;
-  }
+    .home_btn a span {
+        font-size: 30px;
+    }
 
-  .side-bar-hidden{
-    width:15%;
-  }
+    .side-bar-hidden {
+        width: 15%;
+    }
 
-  .header-budget{
-      display:flex;
-  }
+    .header-budget {
+        display: flex;
+    }
 
-  #header-clock{
-      font-family: 'NanumBarunGothicBold';
-      font-weight:400;
-      font-size: 20px;            /* 30px*/
-      color: rgb(75, 54, 33);
-      display:block;
-  }
+    #header-clock {
+        font-family: 'NanumBarunGothicBold';
+        font-weight: 400;
+        font-size: 20px; /* 30px*/
+        color: rgb(75, 54, 33);
+        display: block;
+    }
 
-  .login a{
-    font-size:25px;
-  }
+    .login a {
+        font-size: 25px;
+    }
+
+    .profile-container span{
+        font-family: 'NanumBarunGothicBold';
+        font-weight: 400;
+        font-size: 20px; /* 30px*/
+        color: rgb(75, 54, 33);
+        display: block;
+    }
 }

@@ -17,20 +17,18 @@ public class CustomUserDetailService implements UserDetailsService {
     private final MemberRepository memberRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        log.info("➡ 로그인 시도: {}", username);
-
-        Member member = memberRepository.findByLoginId(username);
+    public UserDetails loadUserByUsername(String loginId) throws UsernameNotFoundException {
+        log.info("➡ 로그인 시도: {}", loginId);
+        
+        //DB에서 loginId로 Member 조회후 있다면 반환
+        Member member = memberRepository.findByLoginId(loginId).orElse(null);;
         if (member == null) {
-            log.warn("❌ 사용자 없음: {}", username);
+            log.warn("❌ 사용자 없음: {}", loginId);
             throw new UsernameNotFoundException("존재하지 않는 아이디입니다.");
         }
-
-        return new CustomUserPrincipal(
-                member.getLoginId(),
-                member.getPassword(),
-                member.getRole()
-        );
+        
+        //커스터마이징한 UserPrincipal 객체를 생성
+        return new CustomUserPrincipal(member);
     }
 }
 

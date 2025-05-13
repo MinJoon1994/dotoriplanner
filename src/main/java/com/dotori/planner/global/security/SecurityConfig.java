@@ -33,13 +33,12 @@ import java.io.IOException;
 @RequiredArgsConstructor
 @Configuration
 public class SecurityConfig {
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+
+    private final CustomOAuth2UserService customOAuth2UserService;
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http, CustomUserDetailService customUserDetailService) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http,
+                                           CustomUserDetailService customUserDetailService) throws Exception {
 
         log.info("=================== Security configure : securityFilterChain ===================");
 
@@ -70,7 +69,15 @@ public class SecurityConfig {
                    });
         });
 
-        //3. 로그인 성공시, 리소스 접근 권한 설정
+        //3. 소셜 로그인 설정 추가
+        http.oauth2Login(oauth2 -> oauth2
+                .loginPage("/member/login")  // 네 기존 커스텀 로그인 페이지
+                .userInfoEndpoint(userInfo -> userInfo
+                        .userService(customOAuth2UserService)  // 네가 만들 CustomOAuth2UserService 주입
+                )
+        );
+
+        //4. 로그인 성공시, 리소스 접근 권한 설정
         http.authorizeHttpRequests(auth ->{
             //3.1 정적 리소스 접근 권한 부여
             auth.requestMatchers("/bs/**","/budget/**","/images/**","/main/**","/header/**","/footer/**","/favicon.ico").permitAll();
@@ -81,8 +88,6 @@ public class SecurityConfig {
         });
 
         //4. 로그아웃 관련 설정
-        //4.1 로그아웃 기본 설정
-        //http.logout(Customizer.withDefaults());
 
         //4.2 로그아웃 커스텀
         http.logout(logout ->{
