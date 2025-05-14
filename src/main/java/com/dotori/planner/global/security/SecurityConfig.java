@@ -71,10 +71,13 @@ public class SecurityConfig {
 
         //3. 소셜 로그인 설정 추가
         http.oauth2Login(oauth2 -> oauth2
-                .loginPage("/member/login")  // 네 기존 커스텀 로그인 페이지
+                .loginPage("/member/login")  // ✅ 커스텀 로그인 페이지
                 .userInfoEndpoint(userInfo -> userInfo
-                        .userService(customOAuth2UserService)  // 네가 만들 CustomOAuth2UserService 주입
+                        .userService(customOAuth2UserService)  // ✅ CustomOAuth2UserService 주입
                 )
+                .successHandler((request, response, authentication) -> {
+                    response.sendRedirect("/");    // ✅ 로그인 성공 시 루트로 이동
+                })
         );
 
         //4. 로그인 성공시, 리소스 접근 권한 설정

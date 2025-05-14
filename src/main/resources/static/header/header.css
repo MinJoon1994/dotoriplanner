@@ -211,49 +211,88 @@
 .profile-modal {
     display: none;
     position: absolute;
-    top: 60px;
+    top: 70px;
     right: 20px;
-    background-color: #FAF6F1;
-    border: 1px solid #ddd;
-    border-radius: 12px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-    width: 250px;
+    background-color: #fff8f0;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    width: 270px;
+    padding: 20px;
     z-index: 1000;
-}
-
-.profile-modal .modal-content {
-    padding: 15px;
+    font-family: 'NanumBarunGothic', sans-serif;
     text-align: center;
 }
 
-.modal-profile-image {
-    width: 60px;
-    height: 60px;
+.modal-header img {
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     object-fit: cover;
-    margin-bottom: 10px;
-    background-color: #ddd;
+    border: 2px solid #c2a471;
+    background-color: #eee;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin: 0 auto;
 }
 
-.modal-buttons a {
-    display: block;
-    padding: 8px;
-    margin: 5px 0;
-    border: 1px solid #ddd;
+.modal-body h3 {
+    font-size: 18px;
+    color: #5a4033;
+    margin: 10px 0 5px 0;
+}
+
+.modal-body p {
+    font-size: 13px;
+    color: #8b7e74;
+    margin: 0;
+}
+
+/* 버튼 두개 한줄 정렬 */
+.modal-buttons-inline {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 15px;
+}
+
+.modal-buttons-inline a{
+    text-decoration: none;
+    color:white;
+}
+
+.modal-buttons-inline a:hover{
+    color:white;
+}
+
+.brown-button-inline {
+    flex: 1;
+    background-color: #7c583b;
+    color: white;
+    text-align: center;
+    padding: 8px 0;
     border-radius: 8px;
     text-decoration: none;
-    color: black;
-    font-size: 14px;
+    font-size: 13px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.modal-buttons a:hover {
-    background-color: #f0f0f0;
+.brown-button-inline:hover {
+    background-color: #5a4033;
+    transform: translateY(-2px);
 }
 
 .close {
     float: right;
     font-size: 20px;
     cursor: pointer;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: rgb(75, 54, 33);
+    cursor: pointer;
+    padding: 0;
 }
 
 /* 반응형 768px 이상*/

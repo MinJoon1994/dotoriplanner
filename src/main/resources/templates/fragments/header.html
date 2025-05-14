@@ -62,12 +62,19 @@
 
                 <!-- 모달 -->
                 <div id="profileModal" class="profile-modal" th:if="${#authorization.expression('isAuthenticated()')}">
-                    <img th:src="${#authentication.principal.profileImg}" alt="프로필" class="modal-profile-image">
-                    <h3 th:text="${#authentication.principal.name + '님'}"></h3>
-                    <p th:text="'이메일: ' + ${#authentication.principal.email}"></p>
-                    <div class="modal-buttons">
-                        <a href="/mypage">마이페이지</a>
-                        <a href="/logout">로그아웃</a>
+                    <div class="d-flex justify-content-end">
+                        <button type="button" class="close-btn" onclick="toggleProfileModal()">&#215;</button> <!-- 같은 효과 -->
+                    </div>
+                    <div class="modal-header">
+                        <img th:src="${#authentication.principal.profileImg}" alt="프로필" class="modal-profile-image">
+                    </div>
+                    <div class="modal-body">
+                        <h3 th:text="${#authentication.principal.name + '님'}"></h3>
+                        <p th:text="${#authentication.principal.email}"></p>
+                    </div>
+                    <div class="modal-buttons-inline">
+                        <a href="/mypage" class="brown-button-inline">마이페이지</a>
+                        <a href="/logout" class="brown-button-inline">로그아웃</a>
                     </div>
                 </div>
 

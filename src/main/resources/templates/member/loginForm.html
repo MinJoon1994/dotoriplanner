@@ -168,6 +168,13 @@
             margin-top: 0.5rem;
         }
 
+        .social-login-btn img {
+            height: 20px;         /* 원하는 높이로 조절 (보통 16~24px 추천) */
+            width: auto;          /* 비율 유지 */
+            margin-right: 8px;    /* 이미지와 텍스트 사이 간격 */
+            vertical-align: middle; /* 텍스트와 이미지 높이 맞춤 */
+        }
+
         @font-face {
             font-family: 'GyeonggiTitle';
             src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/GyeonggiTitleM.woff') format('woff');
@@ -206,15 +213,17 @@
                 </div>
 
                 <div class="social-login-section">
-                    <button type="button" class="social-login-btn naver_btn">
-                        네이버로 시작하기
+                    <button type="button" class="social-login-btn naver_btn"
+                            onclick="location.href='/oauth2/authorization/naver'">
+                        <img src="/images/네이버 로고.png">네이버로 시작하기
                     </button>
                     <button type="button" class="social-login-btn kakao_btn"
                             onclick="location.href='/oauth2/authorization/kakao'">
-                        카카오로 시작하기
+                        <img src="/images/카카오톡 로고.webp">카카오로 시작하기
                     </button>
-                    <button type="button" class="social-login-btn google_btn">
-                        구글로 시작하기
+                    <button type="button" class="social-login-btn google_btn"
+                            onclick="location.href='/oauth2/authorization/google'">
+                        <img src="/images/구글 로고.png">구글로 시작하기
                     </button>
                 </div>
             </div>
