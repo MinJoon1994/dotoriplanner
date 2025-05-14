@@ -53,3 +53,5 @@ application.yml
 *.swp
 *.bak
 *.tmp
+
+src/main/resources/application-oauth.properties
