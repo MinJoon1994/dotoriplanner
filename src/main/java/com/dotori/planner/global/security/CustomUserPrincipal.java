@@ -69,4 +69,17 @@ public class CustomUserPrincipal implements UserDetails, OAuth2User {
     public String getName() {
         return String.valueOf(name);   // → 보통 user id (PK)로 설정
     }
+
+    public Member getMember() {
+        return Member.builder()
+                .id(this.id)
+                .loginId(this.username)
+                .email(this.email)
+                .password(this.password)
+                .name(this.name)
+                .profileImageUrl(this.profileImg)
+                .social_type(this.socialType)
+                .role(Role.valueOf(this.authorities.iterator().next().getAuthority().replace("ROLE_", "")))
+                .build();
+    }
 }

@@ -35,7 +35,8 @@
                     <h2>작은 절약이 쌓이는 기쁨을 느껴보세요.</h2>
                     <br>
                     <br>
-                    <button class="main_btn mt-3" onclick="location.href='/login'">로그인하고 시작하기</button>
+                    <button class="main_btn mt-3" onclick="location.href='/login'" th:if="${#authorization.expression('!isAuthenticated()')}">로그인하고 시작하기</button>
+                    <button class="main_btn mt-3" onclick="location.href='/login'" th:if="${#authorization.expression('isAuthenticated()')}">월간예산 설정하기</button>
                 </div>
             </div>
             <div class="img_box">
