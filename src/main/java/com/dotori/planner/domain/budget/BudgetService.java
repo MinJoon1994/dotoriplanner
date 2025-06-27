@@ -1,17 +1,50 @@
 package com.dotori.planner.domain.budget;
 
 import com.dotori.planner.domain.member.Member;
+import com.dotori.planner.domain.member.MemberRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
+@Service
+@RequiredArgsConstructor
+public class BudgetService {
 
-public interface BudgetService {
+    private final BudgetRepository budgetRepository;
 
-    Optional<Budget> findByMemberAndMonthAndStatus(Member member, String month, BudgetStatus status);
+    private final MemberRepository memberRepository;
 
-    Budget createBudget(BudgetDTO dto, Member member);
+    public Optional<Budget> findByMemberAndMonth(Long id, String currentMonth) {
 
-    List<Budget> getBudgetsByMember(Member member); // 선택사항
+        return budgetRepository.findByMemberIdAndBudgetMonth(id, currentMonth);
+    }
+    
+    //새로운 월 예산 설정
+    public void saveBudget(Long id, BudgetSaveDTO dto) {
+
+        Member member = memberRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("회원 정보 없음"));
+
+        // 고정지출 총합 계산
+        int fixedTotal = dto.getFixedExpenses().stream()
+                .mapToInt(BudgetSaveDTO.FixedExpenseDTO::getAmount)
+                .sum();
+
+        // ✅ 기타지출 총합 계산 추가
+        int etcTotal = dto.getMiscExpenses().stream()
+                .mapToInt(BudgetSaveDTO.MiscExpenseDTO::getAmount)
+                .sum();
+
+        Budget budget = Budget.builder()
+                .member(member)
+                .budgetMonth(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM")))
+                .totalBudget(dto.getTotalBudget())
+                .etcTotal(etcTotal)
+                .fixedTotal(fixedTotal)
+                .build();
+
+    }
 }

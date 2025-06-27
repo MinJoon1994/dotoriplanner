@@ -1,8 +1,13 @@
 package com.dotori.planner.domain.member;
 
+import com.dotori.planner.domain.budget.DailyPointLog;
+import com.dotori.planner.domain.budget.Budget;
+import com.dotori.planner.domain.budget.DailySpending;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -11,6 +16,7 @@ import java.time.LocalDateTime;
 @Builder
 public class Member {
 
+    //회원 로그인 관련
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; //회원 ID(PK)
@@ -55,6 +61,18 @@ public class Member {
     
     private String social_id; //회원 소셜 로그인 ID
 
+    //회원 기능 관련
+    @Column(nullable = false)
+    private int totalPoint = 0; // 도토리 포인트 보유량
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Budget> budgets = new ArrayList<>(); //월 예산 리스트
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<DailySpending> dailySpendings = new ArrayList<>(); //일일 소비 리스트
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<DailyPointLog> pointLogs = new ArrayList<>(); //포인트 내역
 
     @PrePersist
     protected void onCreate() {

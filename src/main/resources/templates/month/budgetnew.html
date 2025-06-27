@@ -1,93 +1,101 @@
-<!doctype html>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultrag.net.nz/.thymeleaf/layout"
       layout:decorate="~{layouts/base}">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
-  <title>도토리 플래너</title>
+    <meta charset="UTF-8">
+    <title>월 예산 설정 - 도토리 플래너</title>
 
-  <!-- 부트스트랩 -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
-  <link href="bs/css/styles.css" th:href="@{/bs/css/styles.css}" rel="stylesheet"/>
-
-  <!-- 폰트 -->
-  <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-barun-gothic.css" rel="stylesheet">
-
-  <!-- 내부 css -->
-  <link href="/main/css/main.css"
-        th:href="@{/budget/css/budgetnew.css}" rel="stylesheet"/>
-
-  <!-- 내부 JS -->
-  <script th:src="@{budget/js/budgetnew.js}" defer></script>
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/main/css/main.css" th:href="@{/budget/css/budgetnew.css}" rel="stylesheet"/>
+    <script th:src="@{/budget/js/budgetnew.js}" defer></script>
 </head>
-<body>
-<div layout:fragment="content">
-  <div class="container">
-  <h2>📅 6월 예산 설정하기</h2>
 
-  <form th:action="@{/budget}" method="post">
+<div layout:fragment="content">
+    <div class="container mt-4">
+        <div class="budget-card">
+        <h2 id="budgetTitle">월 예산 설정하기</h2>
+
+        <form th:action="@{/budget}" method="post">
+            <!-- 연월 -->
+            <div class="mb-3">
+                <label for="budgetMonth">예산 적용 월</label>
+                <input type="month" class="form-control" id="budgetMonth" name="budgetMonth" required>
+            </div>
 
             <!-- 총 예산 -->
-            <label>
-                <span class="tooltip">❓
-                    <span class="tooltiptext">한 달 동안 사용할 총 예산 금액입니다. <br> (고정지출 + 기타지출 포함)</span>
-                </span> 총 예산
-            </label><br>
-            <input type="number" name="totalBudget" required><br><br>
+            <div class="mb-3">
+                <label for="totalBudget">총 예산 금액</label>
+                <input type="number" class="form-control" id="totalBudget" name="totalBudget" required>
+            </div>
 
-            <!-- 기타 지출 -->
-            <label>
-                <span class="tooltip">❓
-                    <span class="tooltiptext">병원비, 경조사비 등 예상 가능한 일시 지출입니다.</span>
-                </span> 기타 지출
-            </label><br>
-            <input type="number" name="etcBudget" value="0"><br><br>
+            <!-- 고정 지출 목록 -->
+            <div class="mb-3">
+                <label>고정 지출 목록</label>
+                <button type="button" class="btn btn-sm btn-secondary mb-2" onclick="addFixedExpenseRow()">+ 항목 추가</button>
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>이름</th>
+                        <th>카테고리</th>
+                        <th>금액</th>
+                        <th>삭제</th>
+                    </tr>
+                    </thead>
+                    <tbody id="fixedExpenseTable">
+                    <tr>
+                        <td><input type="text" name="fixedExpenses[0].name" class="form-control" required></td>
+                        <td>
+                            <select name="fixedExpenses[0].category" class="form-select" required>
+                                <option value="">선택</option>
+                                <option value="HOUSING">주거</option>
+                                <option value="COMMUNICATION">통신</option>
+                                <option value="SUBSCRIPTION">구독</option>
+                                <option value="INSURANCE">보험</option>
+                                <option value="TRANSPORT">교통</option>
+                                <option value="EDUCATION">교육</option>
+                                <option value="FINANCE">금융</option>
+                                <option value="ETC">기타</option>
+                            </select>
+                        </td>
+                        <td><input type="number" name="fixedExpenses[0].amount" class="form-control" required></td>
+                        <td><button type="button" class="btn btn-danger" onclick="removeRow(this)">삭제</button></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
 
-            <!-- 고정 지출 -->
-            <label>
-                <span class="tooltip">❓
-                    <span class="tooltiptext">월마다 반복되는 항목을 입력하세요.<br> (예: 월세, 구독 등)</span>
-                </span> 고정 지출
-              <button type="button" onclick="addFixedExpenseRow()">추가하기 +</button>
-            </label><br><br>
+            <!-- 기타 지출 목록 -->
+            <div class="mb-3">
+                <label>기타 지출 목록</label>
+                <button type="button" class="btn btn-sm btn-secondary mb-2" onclick="addMiscExpenseRow()">+ 항목 추가</button>
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>이름</th>
+                        <th>금액</th>
+                        <th>지출 예정일</th>
+                        <th>삭제</th>
+                    </tr>
+                    </thead>
+                    <tbody id="miscExpenseTable">
+                    <tr>
+                        <td><input type="text" name="etcExpenses[0].name" class="form-control" required></td>
+                        <td><input type="number" name="etcExpenses[0].amount" class="form-control" required></td>
+                        <td><input type="date" name="etcExpenses[0].date" class="form-control"></td>
+                        <td><button type="button" class="btn btn-danger" onclick="removeRow(this)">삭제</button></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
 
-            <table>
-              <thead>
-              <tr>
-                <th>항목명</th>
-                <th>카테고리 설정</th>
-                <th>금액 (원)</th>
-              </tr>
-              </thead>
-              <tbody id="fixedExpenseTableBody">
-              <tr>
-                <td><input type="text" name="fixedExpenses[][name]" required></td>
-                <td>
-                  <select name="fixedExpenses[][category]" required>
-                    <option value="">항목을 선택해주세요</option>
-                    <option value="HOUSING">주거</option>
-                    <option value="COMMUNICATION">통신</option>
-                    <option value="SUBSCRIPTION">구독</option>
-                    <option value="INSURANCE">보험</option>
-                    <option value="TRANSPORT">교통</option>
-                    <option value="EDUCATION">교육</option>
-                    <option value="FINANCE">금융</option>
-                    <option value="ETC">기타</option>
-                  </select>
-                </td>
-                <td><input type="number" name="fixedExpenses[][amount]" required></td>
-              </tr>
-              </tbody>
-            </table>
-
-            <br>
-            <button class="btn" type="submit">설정 완료</button>
-            <button class="btn" type="button" onclick="history.back()">취소</button>
-          </form>
-  </div>
+            <!-- 제출 버튼 -->
+            <div class="mt-4">
+                <button type="submit" class="btn btn-primary">예산 설정 완료</button>
+                <button type="button" class="btn btn-secondary" onclick="history.back()">취소</button>
+            </div>
+        </form>
+        </div>
+    </div>
 </div>
-</body>
 </html>

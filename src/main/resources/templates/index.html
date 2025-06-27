@@ -36,7 +36,7 @@
                     <br>
                     <br>
                     <button class="main_btn mt-3" onclick="location.href='/login'" th:if="${#authorization.expression('!isAuthenticated()')}">로그인하고 시작하기</button>
-                    <button class="main_btn mt-3" onclick="location.href='/login'" th:if="${#authorization.expression('isAuthenticated()')}">월간예산 설정하기</button>
+                    <button class="main_btn mt-3" onclick="location.href='/budget/month/main'" th:if="${#authorization.expression('isAuthenticated()')}">월간예산 설정하기</button>
                 </div>
             </div>
             <div class="img_box">

@@ -43,7 +43,6 @@ public class SecurityConfig {
         log.info("=================== Security configure : securityFilterChain ===================");
 
         // 1. 로그인 과정 생략(제작시 편의를 위해)
-        //http.csrf(c->c.disable()); // CSRF 요청 비활성화 RestAPI 에서는 비활성화 안됨
         http.httpBasic(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable);
 
@@ -106,7 +105,7 @@ public class SecurityConfig {
 
         //4. 로그아웃 관련 설정
 
-        //4.2 로그아웃 커스텀
+        //4.1 로그아웃 커스텀
         http.logout(logout ->{
             logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                     .logoutSuccessUrl("/")

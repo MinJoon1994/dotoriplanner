@@ -1,62 +1,61 @@
 package com.dotori.planner.domain.budget;
 
-import com.dotori.planner.domain.budget.BudgetStatus;
 import com.dotori.planner.domain.member.Member;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Data
-@NoArgsConstructor
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
+@Table(name = "budget", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"member_id", "yearMonth"})
+})
 public class Budget {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; //예산 ID(PK)
+    private Long id;
 
-    @Column(nullable = false)
-    private String month; // ex) "2024-05" (yyyy-MM)
-
-    @Column(nullable = false)
-    private int totalBudget; // 총 예산
-
-    private int fixedBudget; //고정 지출
-    private int etcBudget; //기타 지출
-    private int unexpectedBudget; //돌발 지출
-
-    private int remainingBudget; // 총 예산 - 고정 - 기타 (일별 예산 배분용)
-
-    private LocalDate startDate; // 예산 적용 시작일 (기본값: LocalDate.now())
-
-    @Enumerated(EnumType.STRING)
-    private BudgetStatus status; // ACTIVE, EXPIRED
-
+    // ✅ 회원 연동
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member;  //회원(FK)
+    @JoinColumn(name = "member_id", nullable = false)
+    private Member member;
 
-    @Column(updatable = false)
-    private LocalDateTime createdAt;    //생성일
+    // 예: "2025-07"
+    @Column(length = 7, nullable = false)
+    private String budgetMonth;
 
-    private LocalDateTime updatedAt;    //수정일
+    // 총 예산 금액
+    @Column(nullable = false)
+    private int totalBudget;
+
+    // 고정 지출 총액
+    @Column(nullable = false)
+    private long fixedTotal = 0;
+
+    // 기타 지출 총액
+    @Column(nullable = false)
+    private long etcTotal = 0;
+
+    // ✅ 고정 지출 연동
+    @OneToMany(mappedBy = "budget", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<FixedExpense> fixedExpenses = new ArrayList<>();
+
+    // ✅ 기타 지출 연동
+    @OneToMany(mappedBy = "budget", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MiscExpense> etcExpenses = new ArrayList<>();
+
+    // 생성일
+    private LocalDateTime createdAt;
 
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
-        this.startDate = LocalDate.now(); // 기본값 세팅
-        this.status = BudgetStatus.ACTIVE;
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        this.updatedAt = LocalDateTime.now();
     }
 }
