@@ -46,7 +46,7 @@ public class Member {
     private Boolean marketingAgree; //회원 마케팅 수신 동의
 
     @Column(nullable = false)
-    private Boolean deleted = false; //회원 삭제 여부
+    private Boolean deleted;//회원 삭제 여부
 
     @Column(updatable = false)
     private LocalDateTime createdAt; //회원 가입일
@@ -63,16 +63,13 @@ public class Member {
 
     //회원 기능 관련
     @Column(nullable = false)
-    private int totalPoint = 0; // 도토리 포인트 보유량
+    private int totalPoint; // 도토리 포인트 보유량
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Budget> budgets = new ArrayList<>(); //월 예산 리스트
+    private List<Budget> budgets; //월 예산 리스트
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<DailySpending> dailySpendings = new ArrayList<>(); //일일 소비 리스트
-
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<DailyPointLog> pointLogs = new ArrayList<>(); //포인트 내역
+    private List<DailyPointLog> pointLogs; //포인트 내역
 
     @PrePersist
     protected void onCreate() {

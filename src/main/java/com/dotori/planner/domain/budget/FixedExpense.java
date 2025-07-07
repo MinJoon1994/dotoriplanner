@@ -16,26 +16,29 @@ public class FixedExpense {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // ✅ 연관된 사용자
+    // 연관된 사용자
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", nullable = false)
     private Member member;
 
-    // ✅ 연관된 월 예산
+    // 연관된 월 예산
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "budget_id", nullable = false)
     private Budget budget;
 
-    // ✅ 지출 항목 이름 (예: 넷플릭스, 국민연금)
+    // 지출 항목 이름 (예: 넷플릭스, 국민연금)
     @Column(nullable = false)
     private String name;
 
-    // ✅ 금액
+    // 카테고리
     @Column(nullable = false)
+    private String category;
+
+    // 금액
     private int amount;
 
-    // ✅ 매달 반복 여부
-    @Column(nullable = false)
+    // 매달 반복 여부
     private boolean isRecurring;
+
 }
 

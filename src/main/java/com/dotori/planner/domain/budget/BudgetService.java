@@ -16,35 +16,17 @@ public class BudgetService {
     private final BudgetRepository budgetRepository;
 
     private final MemberRepository memberRepository;
-
+    
+    //유저 해당월 예산 가져오기
     public Optional<Budget> findByMemberAndMonth(Long id, String currentMonth) {
 
         return budgetRepository.findByMemberIdAndBudgetMonth(id, currentMonth);
     }
     
     //새로운 월 예산 설정
-    public void saveBudget(Long id, BudgetSaveDTO dto) {
-
-        Member member = memberRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("회원 정보 없음"));
-
-        // 고정지출 총합 계산
-        int fixedTotal = dto.getFixedExpenses().stream()
-                .mapToInt(BudgetSaveDTO.FixedExpenseDTO::getAmount)
-                .sum();
-
-        // ✅ 기타지출 총합 계산 추가
-        int etcTotal = dto.getMiscExpenses().stream()
-                .mapToInt(BudgetSaveDTO.MiscExpenseDTO::getAmount)
-                .sum();
-
-        Budget budget = Budget.builder()
-                .member(member)
-                .budgetMonth(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM")))
-                .totalBudget(dto.getTotalBudget())
-                .etcTotal(etcTotal)
-                .fixedTotal(fixedTotal)
-                .build();
-
+    public Budget saveBudget(Budget budget) {
+        return budgetRepository.save(budget);
     }
+
+
 }

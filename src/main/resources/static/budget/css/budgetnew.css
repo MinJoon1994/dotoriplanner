@@ -1,17 +1,7 @@
-.budget-section {
-    min-height: 80vh;
-    background-color: #E8D8C3; /* 베이지 톤 */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 30px 16px;
-    box-sizing: border-box;
-}
-
 /* 카드 박스 */
 .budget-card {
     width: 100%;
-    max-width: 600px;
+    max-width: 640px;
     background-color: #fff;
     border-radius: 16px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
@@ -28,11 +18,11 @@
     margin-bottom: 30px;
 }
 
-/* 라벨과 폼 */
+/* 기본 입력 요소 */
 label {
     display: block;
     font-weight: bold;
-    margin-bottom: 5px;
+    margin-bottom: 6px;
     color: #333;
 }
 
@@ -42,39 +32,67 @@ select.form-select {
     font-size: 14px;
     border-radius: 6px;
     border: 1px solid #ccc;
-    padding: 8px 12px;
-    margin-bottom: 10px;
+    padding: 8px 10px;
     box-sizing: border-box;
 }
 
-/* 테이블 */
+/* 테이블 기본 */
 .table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 1rem;
+    font-size: 14px;
 }
 
 .table th,
 .table td {
     text-align: center;
-    padding: 8px;
+    padding: 10px 6px;
     vertical-align: middle;
 }
 
 .table th {
-    background-color: #efefef;
+    background-color: #f5f5f5;
+    font-weight: 600;
+    font-size: 13px;
+    white-space: nowrap;
 }
 
-.table-bordered {
-    border: 1px solid #dee2e6;
-    background-color: #fff;
+/* 각 열 너비 비율 */
+.table th:nth-child(1),
+.table td:nth-child(1) {
+    width: 28%;
+}
+
+.table th:nth-child(2),
+.table td:nth-child(2) {
+    width: 28%;
+}
+
+.table th:nth-child(3),
+.table td:nth-child(3) {
+    width: 28%;
+}
+
+.table th:nth-child(4),
+.table td:nth-child(4) {
+    width: 16%;
+}
+
+/* 삭제 버튼 */
+.table td button.btn-danger {
+    padding: 5px 10px;
+    font-size: 12px;
+    border-radius: 4px;
+    width: 100%;
+    max-width: 80px;
 }
 
 /* 버튼 */
 .btn {
     font-size: 14px;
-    padding: 6px 12px;
-    border-radius: 4px;
+    padding: 7px 14px;
+    border-radius: 5px;
     cursor: pointer;
 }
 
@@ -98,42 +116,53 @@ select.form-select {
     background-color: #8d6e63;
 }
 
-.btn-danger {
+.delete-btn {
     background-color: #d32f2f;
     color: #fff;
     border: none;
+    border-radius: 5px;
 }
 
-.btn-danger:hover {
+.delete-btn:hover {
     background-color: #b71c1c;
 }
 
-/* 버튼 정렬 */
-.budget-card .btn-group {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-top: 20px;
+/* 반응형: 모바일에서는 가로 스크롤 허용 */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
 }
 
-/* 반응형 대응 */
-@media (min-width: 768px) {
-    .budget-card {
-        padding: 40px 30px;
-    }
+.input-form{
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 13px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+    background-color: #fff;
+    color: #333;
+}
 
-    .budget-card h2 {
-        font-size: 24px;
+.input-form:focus{
+    border-color: #795548;
+    outline: none;
+}
+@media (max-width: 576px) {
+    .budget-card {
+        padding: 20px 10px;
     }
 
     input.form-control,
-    select.form-select,
-    .btn {
-        font-size: 16px;
+    select.form-select {
+        font-size: 13px;
+        padding: 6px 10px;
     }
 
-    .btn {
-        padding: 8px 16px;
+    .delete-btn{
+        display:block;
+        font-size: 13px;
+        width:40px;
+        height: 20px;
     }
 }

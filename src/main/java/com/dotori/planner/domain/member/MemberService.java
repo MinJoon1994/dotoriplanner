@@ -14,5 +14,7 @@ public interface MemberService {
     boolean isLoginIdAvailable(String loginId);
     //이메일 중복 확인
     boolean isEmailAvailable(String email);
+    //회원 아이디로 회원 찾기
+    Member findById(Long id);
 
 }

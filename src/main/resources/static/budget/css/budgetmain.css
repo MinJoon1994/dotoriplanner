@@ -1,0 +1,178 @@
+/* 📦 전체 컨테이너 */
+.budget-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* 📌 제목, 요약 정보 */
+.budget-title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.budget-summary {
+    display: block;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    background-color: white;
+    border-radius: 5px;
+    padding:10px;
+}
+
+.summary-item {
+    flex: 1 1 300px;
+    font-weight: 500;
+    color: rgb(112, 84, 60);
+}
+
+/* 🔲 메인 구조 */
+.budget-main {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* 📅 달력 영역 */
+.budget-calendar {
+    flex: 1 1 600px;
+    min-height: 500px;
+    background-color: #fdfdfd;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+/* 📊 우측 지출 영역 */
+.budget-side {
+    flex: 1 1 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.expense-box {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 12px;
+    background-color: #fafafa;
+}
+
+.expense-box h4 {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* 📱 반응형 */
+@media (max-width: 768px) {
+    .budget-container {
+        width: 90%;
+    }
+
+    .budget-summary {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .budget-main {
+        flex-direction: column;
+    }
+
+    .budget-calendar,
+    .budget-side {
+        flex: 1 1 100%;
+    }
+}
+
+/* 🎯 FullCalendar 커스터마이징 */
+
+/* 📦 전체 레이아웃 */
+.budget-calendar {
+    flex: 1 1 600px;
+    min-height: 500px;
+    background-color: #ffffff; /* 전체 흰 배경 */
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    padding: 10px;
+    overflow: hidden; /* 둥근 모서리 안 넘치게 */
+}
+
+/* 🧠 반응형 레이아웃은 따로 유지 (생략 가능) */
+
+/* 🎯 FullCalendar 기본 스타일 제거 및 깔끔하게 설정 */
+.fc-theme-standard td,
+.fc-theme-standard th,
+.fc-scrollgrid,
+.fc-scrollgrid-section,
+.fc-scrollgrid-section-header,
+.fc-col-header,
+.fc-col-header-cell,
+.fc-col-header-cell-cushion,
+.fc-daygrid-day {
+    border: none !important;
+    background-color: #ffffff !important; /* 모두 흰색으로 통일 */
+}
+
+/* 📆 요일 헤더 텍스트 */
+.fc .fc-col-header-cell-cushion {
+    color: rgb(112, 84, 60); /* 도토리 */
+    font-weight: 500;
+    font-size: 0.9rem;
+    text-align: center;
+    text-decoration: none;
+}
+
+/* 🔢 날짜 숫자 스타일 */
+.fc-daygrid-day-frame {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    border-radius: 6px;
+}
+
+.fc-daygrid-day-top {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 2px;
+}
+
+.fc-daygrid-day-number {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #222;
+    text-align: center;
+    padding: 0 4px;
+    text-decoration:none;
+}
+
+/* 📅 이전/다음 달 날짜 흐리게 */
+.fc-day-other .fc-daygrid-day-number {
+    color: rgba(0, 0, 0, 0.3) !important;
+}
+
+/* 🖱️ 마우스 올렸을 때 떠오르는 효과 */
+.fc-daygrid-day:hover .fc-daygrid-day-frame {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    background-color: #f7f7f7;
+    z-index: 1;
+}
+
+/* 🗓️ 전체 테이블도 배경 투명 이슈 방지 */
+.fc table,
+.fc thead,
+.fc thead th {
+    background-color: #ffffff !important;
+}

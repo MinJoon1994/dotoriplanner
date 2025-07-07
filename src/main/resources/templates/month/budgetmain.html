@@ -16,14 +16,72 @@
   <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-barun-gothic.css" rel="stylesheet">
 
   <!-- 내부 JS -->
-  <script th:src="@{budget/js/budgetmain.js}" defer></script>
+  <script th:src="@{/budget/js/budgetmain.js}" defer></script>
+  <link href="/budget/css/budgetmain.css" th:href="@{/budget/css/budgetmain.css}" rel="stylesheet"/>
 
+  <!-- FullCalendar CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet" />
+
+  <!-- FullCalendar JS -->
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
 </head>
 <body>
 <div layout:fragment="content">
-  <div class="w-50 mx-auto pt-5">
-    <div id="calendar"></div>
-  </div>
+
+    <div class="budget-container">
+      <!-- 제목 -->
+      <h2 class="budget-title" id="budgetTitle"></h2>
+
+      <!-- 요약 정보 -->
+      <div class="budget-summary">
+        <div class="summary-item">
+          <span>이번달 총 예산:</span>
+          <strong id="availableBudget"></strong>
+        </div>
+        <div class="summary-item">
+          <span>이번달 남은 예산:</span>
+          <strong id="remainingBudget"></strong>
+        </div>
+        <div class="summary-item">
+          <span>권장 일일 소비 금액:</span>
+          <strong id="recommendedDailySpend"></strong>
+        </div>
+      </div>
+
+      <!-- 본문 콘텐츠 -->
+      <div class="budget-main">
+        <!-- 달력 영역 -->
+        <div id="calendar" class="budget-calendar"></div>
+
+        <!-- 우측 지출 정보 -->
+        <div class="budget-side">
+          <div class="expense-box">
+            <h4>고정 지출 목록</h4>
+            <p th:each="fixed : ${budget.fixedExpenses}">
+              <span th:text="${fixed.name}"></span>
+              <span th:text="${fixed.category}"></span>
+              <span th:text="${fixed.amount}"></span><br>
+            </p>
+          </div>
+          <div class="expense-box">
+            <h4>기타 지출 목록</h4>
+            <p th:each="misc : ${budget.etcExpenses}">
+              <span th:text="${misc.name}"></span>
+              <span th:text="${misc.spendDate}"></span>
+              <span th:text="${misc.amount}"></span><br>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 계산용 값 -->
+    <input type="hidden" id="totalBudget" th:value="${budget.totalBudget}"> <!-- 월 예산 -->
+    <input type="hidden" id="fixedTotal" th:value="${budget.fixedTotal}">   <!-- 고정 지출 총합 -->
+    <input type="hidden" id="etcTotal" th:value="${budget.etcTotal}">       <!-- 기타 지출 총합 -->
+    <input type="hidden" id="budgetMonth" th:value="${budget.budgetMonth}"> <!-- 예산 월 -->
+    <input type="hidden" id="createdAt" th:value="${budget.createdAt}"> <!-- ex: 2025-07-05 -->
+
 </div>
 </body>
 </html>

@@ -89,7 +89,8 @@ public class SecurityConfig {
                     "/main/**",     //메인
                     "/header/**",   //헤더
                     "/footer/**",   //푸터
-                    "/favicon.ico"  //파비콘
+                    "/favicon.ico", //파비콘
+                    "/budget/**"    //예산 CSS
             ).permitAll();
             //3.2 특정 리소스 권한 부여
             auth.requestMatchers(
