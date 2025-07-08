@@ -32,7 +32,7 @@ dependencies {
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+	runtimeOnly 'com.mysql:mysql-connector-j'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
@@ -45,8 +45,30 @@ dependencies {
 	//소셜 로그인
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 
+	// query dsl
+	implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
+	annotationProcessor 'com.querydsl:querydsl-apt:5.0.0:jakarta'
+
+	implementation 'jakarta.persistence:jakarta.persistence-api:3.1.0'
+	annotationProcessor 'jakarta.persistence:jakarta.persistence-api:3.1.0'
+
+}
+def generated = "build/generated"
+
+sourceSets {
+	main {
+		java {
+			srcDirs += [generated]
+		}
+	}
+}
+
+tasks.withType(JavaCompile).configureEach {
+	options.generatedSourceOutputDirectory = file(generated)
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+

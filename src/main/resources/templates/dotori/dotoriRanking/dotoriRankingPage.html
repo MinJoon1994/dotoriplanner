@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultrag.net.nz/.thymeleaf/layout"
+      layout:decorate="~{layouts/base}">
+<head>
+  <meta charset="UTF-8">
+  <title>도토리 랭킹</title>
+  <style th:inline="css">
+    .rank-1 { color: gold; font-weight: bold; }
+    .rank-2 { color: silver; font-weight: bold; }
+    .rank-3 { color: #cd7f32; font-weight: bold; }
+    table {
+        width: 80%;
+        margin: auto;
+        border-collapse: collapse;
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: center;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+<div layout:fragment="content">
+  <div class="content-container">
+    <h2 style="text-align:center;">도토리 랭킹</h2>
+    <table>
+      <thead>
+      <tr>
+        <th>순위</th>
+        <th>이메일</th>
+        <th>포인트</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="member, stat : ${members}"
+          th:classappend="${stat.index == 0} ? 'rank-1' : (${stat.index == 1} ? 'rank-2' : (${stat.index == 2} ? 'rank-3' : ''))">
+        <td th:text="${stat.index + 1}"></td>
+        <td th:text="${member.email}"></td>
+        <td th:text="${member.totalPoint}"></td>
+      </tr>
+      </tbody>
+    </table>
+
+    <!-- 페이지네이션 -->
+    <div style="text-align:center; margin-top:20px;">
+      <span th:if="${page.hasPrevious()}">
+        <a th:href="@{/dotori/dotoriRanking(page=${page.number - 1})}">이전</a>
+      </span>
+      <span th:text="${page.number + 1}">1</span> /
+      <span th:text="${page.totalPages}">1</span>
+      <span th:if="${page.hasNext()}">
+        <a th:href="@{/dotori/dotoriRanking(page=${page.number + 1})}">다음</a>
+      </span>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -96,7 +96,9 @@ public class SecurityConfig {
                     "/",            //기본메인
                     "/member/**",   //멤버 관련
                     "/login/**",    //로그인 관련
-                    "/budget/**"    //예산 관련
+                    "/budget/**",    //예산 관련
+                    "/dotori/**",
+                    "/dotoriPayment/**"
             ).permitAll();
             
             //3.3 유저별로 권한 설정

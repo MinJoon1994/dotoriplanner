@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultrag.net.nz/.thymeleaf/layout"
+      layout:decorate="~{layouts/base}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style th:inline="css">
+        .content .content-container {
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="content-container">
+            <h2>보유 도토리</h2><br><br>
+            <p>총 보유 포인트: <span th:text="${totalPoint}">0</span></p>
+        </div>
+    </div>
+</body>
+</html>

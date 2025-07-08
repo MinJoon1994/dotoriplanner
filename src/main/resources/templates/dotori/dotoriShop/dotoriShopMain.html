@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultrag.net.nz/.thymeleaf/layout"
+      layout:decorate="~{layouts/base}">
+<head>
+  <meta charset="utf-8" />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <style th:inline="css">
+    .dotoriShop-container {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ------------ 메인 ------------- */
+    .dotoriShop-body {
+      display: flex;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .character-div {
+      width: 800px;
+      height: 800px;
+      background-size: cover;
+      background-position: center;
+    }
+    .character-img {
+      width: 800px;
+      height: 800px;
+    }
+    .item-image {
+      width: 200px;
+      height: 200px;
+      object-fit: contain;
+      margin: 5px;
+      cursor: pointer;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+    .item-image.selected {
+      border: 3px solid #28a745; /* 초록색 */
+    }
+  </style>
+</head>
+
+<body>
+<div layout:fragment="content">
+  <div class="dotoriShop-container">
+    <!-- ---------------- 헤더 --------------------- -->
+    <header class="dotoriShop-header">
+      <h2> 🛍️ 도토리 상점 </h2>
+    </header>
+
+    <!-- ---------------- 메인 --------------------- -->
+    <main class="dotoriShop-body">
+
+      <!-- 케릭터 -->
+      <div class="character-div">
+        <img class="character-img" id="mainCharacter" th:src="@{/images/shop/character/기본케릭터.png}" alt="케릭터" />
+      </div>
+
+      <!-- 상점 -->
+      <div>
+        <!-- 의상 선택 메뉴 -->
+        <div class="tab-buttons">
+          <button onclick="showCategory('avatar')">아바타</button>
+          <button onclick="showCategory('background')">배경</button>
+        </div>
+
+        <!-- 의상 -->
+        <div class="item-list" id="item-list">
+          <!-- JS로 동적으로 채움 -->
+        </div>
+      </div>
+    </main>
+
+    <aside class="dotoriShop-aside">
+
+    </aside>
+
+    <!-- ---------------- 푸터 --------------------- -->
+    <!-- 되돌리기, 저장하기 -->
+    <footer>
+      <button onclick="buySelectedItem()">구매하기</button>
+    </footer>
+  </div>
+
+  <script>
+    // 현재 선택된 액세서리 탭 카테고리 (케릭터/배경 중 하나)
+    let currentCategory = 'avatar';
+
+    let selection = {
+      avatar: null,
+      background: null
+    };
+
+    // 되돌리기 기능을 위한 이전 선택 저장 객체
+    let previousSelections = {};
+
+    // 카테고리별 액세서리 항목 데이터
+    const items = {
+      avatar: [
+        { name: '선택해제', price: '0', src: '/images/shop/abatar/선택해제.png', isClear: true },
+        { name: '개발자', price: '800', src: '/images/shop/abatar/개발자.png' },
+        { name: '공주', price: '800', src: '/images/shop/abatar/공주.png' },
+        { name: '기사', price: '800', src: '/images/shop/abatar/기사.png' },
+        { name: '맨유', price: '800', src: '/images/shop/abatar/맨유.png' },
+        { name: '배트맨', price: '800', src: '/images/shop/abatar/배트맨.png' },
+        { name: '상어', price: '800', src: '/images/shop/abatar/상어.png' },
+        { name: '슈퍼맨', price: '800', src: '/images/shop/abatar/슈퍼맨.png' },
+        { name: '오징어게임', price: '800', src: '/images/shop/abatar/오징어게임.png' },
+        { name: '요리사', price: '800', src: '/images/shop/abatar/요리사.png' },
+        { name: '죄수', price: '800', src: '/images/shop/abatar/죄수.png' },
+        { name: '토끼', price: '800', src: '/images/shop/abatar/토끼.png' },
+        { name: '프랑켄슈타인', price: '800', src: '/images/shop/abatar/프랑켄슈타인.png' },
+      ],
+      background: [
+        { name: '선택해제', price: '0', src: '/images/shop/bg/선택해제.png', isClear: true },
+        { name: '감옥', price: '500', src: '/images/shop/bg/감옥.png' },
+        { name: '골목', price: '500', src: '/images/shop/bg/골목.png' },
+        { name: '궁전', price: '500', src: '/images/shop/bg/궁전.png' },
+        { name: '산속', price: '500', src: '/images/shop/bg/산속.png' },
+        { name: '성', price: '500', src: '/images/shop/bg/성.png' },
+        { name: '심해', price: '500', src: '/images/shop/bg/심해.png' },
+        { name: '오징어세트장1', price: '500', src: '/images/shop/bg/오징어세트장1.png' },
+        { name: '오징어세트장2', price: '500', src: '/images/shop/bg/오징어세트장2.png' },
+        { name: '주방', price: '500', src: '/images/shop/bg/주방.png' },
+        { name: '축구장', price: '500', src: '/images/shop/bg/축구장.png' },
+      ]
+    };
+
+    function showCategory(category) {
+      currentCategory = category;
+      const listDiv = document.getElementById('item-list');
+      listDiv.innerHTML = '';
+
+      items[category].forEach(item => {
+        const img = document.createElement('img');
+        img.src = item.src;
+        img.alt = item.name;
+        img.classList.add('item-image');
+
+        img.onclick = () => {
+
+          if (item.isClear) {
+            selection[category] = null;
+          } else {
+            selection[category] = item;
+          }
+
+          // 선택 효과 업데이트
+          updateSelectedHighlight(category);
+
+          updateCharacter();
+        };
+
+        listDiv.appendChild(img);
+      });
+    }
+
+    function updateCharacter() {
+      const mainCharacter = document.getElementById('mainCharacter');
+      const container = document.querySelector('.character-div');
+
+      if (selection.avatar) {
+        mainCharacter.src = selection.avatar.src;
+      } else {
+        mainCharacter.src = '/images/shop/character/기본케릭터.png';
+      }
+
+      if (selection.background) {
+        container.style.backgroundImage = `url('${selection.background.src}')`;
+        container.style.backgroundSize = 'cover';
+        container.style.backgroundPosition = 'center';
+      } else {
+        container.style.backgroundImage = '';
+      }
+    }
+    function buySelectedItem() {
+  const avatar = selection.avatar;
+  const background = selection.background;
+
+  if (!avatar && !background) {
+    Swal.fire({
+      icon: 'info',
+      title: '선택된 아이템 없음',
+      text: '구매할 아이템을 먼저 선택해주세요.',
+    });
+    return;
+  }
+
+  const selectedItems = [];
+
+  if (avatar && !avatar.isClear) {
+    selectedItems.push(`${avatar.name} ${avatar.price}원`);
+  }
+
+  if (background && !background.isClear) {
+    selectedItems.push(`${background.name} ${background.price}원`);
+  }
+
+  Swal.fire({
+    title: '구매 내역 확인',
+    html: selectedItems.join('<br>'),
+    icon: 'question',
+    showCancelButton: true,
+    cancelButtonText: '취소',
+    confirmButtonText: '구매하기',
+    }).then(result => {
+      if (result.isConfirmed) {
+        // ✅ 동적 form 생성
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = '/dotori/shopping'; // 이 경로에 POST 컨트롤러 필요
+
+        if (avatar && !avatar.isClear) {
+          const avatarInput = document.createElement('input');
+          avatarInput.type = 'hidden';
+          avatarInput.name = 'avatar';
+          avatarInput.value = avatar.name;
+          form.appendChild(avatarInput);
+        }
+
+        if (background && !background.isClear) {
+          const bgInput = document.createElement('input');
+          bgInput.type = 'hidden';
+          bgInput.name = 'background';
+          bgInput.value = background.name;
+          form.appendChild(bgInput);
+        }
+
+        document.body.appendChild(form);
+        form.submit();
+      }
+    });
+  }
+    function updateSelectedHighlight(category) {
+      const itemList = document.getElementById('item-list');
+      const images = itemList.querySelectorAll('.item-image');
+
+      images.forEach(img => {
+        // alt 속성이 name과 동일하다고 가정
+        if (
+          selection[category] &&
+          img.alt === selection[category].name &&
+          !selection[category].isClear
+        ) {
+          img.classList.add('selected');
+        } else {
+          img.classList.remove('selected');
+        }
+      });
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+      showCategory('avatar');
+    });
+
+  </script>
+</div>
+
+</body>
+</html>
+

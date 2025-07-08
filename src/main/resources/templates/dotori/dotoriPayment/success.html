@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultrag.net.nz/.thymeleaf/layout"
+      layout:decorate="~{layouts/base}">
+<head>
+  <meta charset="utf-8" />
+</head>
+<body>
+  <div layout:fragment="content">
+    <!-- 결제 성공 메시지 표시 -->
+    <h2>결제 성공</h2>
+
+    <!-- 결제 관련 정보 출력 영역 -->
+    <p id="paymentKey"></p>
+    <p id="orderId"></p>
+    <p id="amount"></p>
+
+    <script>
+      // 🌟 [1] URL 쿼리 파라미터에서 결제 관련 정보 추출
+      // 예: /success?paymentKey=abc&orderId=123&amount=10000
+      const urlParams = new URLSearchParams(window.location.search);
+      const paymentKey = urlParams.get("paymentKey");
+      const orderId = urlParams.get("orderId");
+      const amount = urlParams.get("amount");
+
+      // 🌟 [2] 결제 승인 요청 함수
+      async function confirm() {
+        // 결제 승인 API에 보낼 요청 데이터 구성
+        const requestData = {
+          paymentKey: paymentKey,
+          orderId: orderId,
+          amount: amount,
+        };
+
+        // 🌟 [2-1] 백엔드로 결제 승인 요청 전송
+        const response = await fetch("/dotoriPayment/confirm", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestData), // JSON 형태로 요청
+        });
+
+        // 응답을 JSON 으로 파싱
+        const json = await response.json();
+
+        // 🌟 [2-2] 실패 응답인 경우 실패 페이지로 리디렉션
+        if (!response.ok) {
+          console.log(json); // 에러 메시지 로그 출력
+          window.location.href = `/fail?message=${encodeURIComponent(json.message)}&code=${json.code}`;
+        }
+
+        // 🌟 [2-3] 성공 응답인 경우 처리 (현재는 콘솔 출력)
+        console.log(json);
+      }
+
+      // 페이지 로딩 시 결제 승인 요청 실행
+      confirm();
+
+      // 🌟 [3] 결제 성공 정보 화면에 표시
+      const paymentKeyElement = document.getElementById("paymentKey");
+      const orderIdElement = document.getElementById("orderId");
+      const amountElement = document.getElementById("amount");
+
+      // 결제 정보 텍스트 설정
+      orderIdElement.textContent = "주문번호: " + orderId;
+      amountElement.textContent = "결제 금액: " + amount;
+      paymentKeyElement.textContent = "paymentKey: " + paymentKey;
+    </script>
+  </div>
+
+
+</body>
+</html>

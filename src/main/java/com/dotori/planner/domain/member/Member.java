@@ -102,5 +102,10 @@ public class Member {
                 .build();
     }
 
+    // 포인트 추가 메서드
+    public void addPoints(int amount) {
+        this.totalPoint += amount;
+    }
+
 }
 
